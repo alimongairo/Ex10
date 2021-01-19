@@ -133,12 +133,3 @@ int get_letter_code(char c) {
 char get_letter(int a) {
     return (char)(a + 97);
 }
-
-void set_values(float a[]) {
-    for (int i = 0; i < 26; i++) {
-        if (a[i] == 1) {
-            printf("enter %c:   ", get_letter(i));
-            scanf("%f", &a[i]);
-        }
-    }
-}
