@@ -10,7 +10,7 @@
 
 const int N = 1000;
 
-std::string infix2prefix(std::string str) {
+char* infix2prefix(std::string str) {
     MyStack<char> head_v(1000);
     MyStack<char> head_o(1000);
     MyStack<char> head(1000);
