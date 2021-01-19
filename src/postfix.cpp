@@ -105,25 +105,25 @@ std::string infix2prefix(std::string str) {
 
 //
 int get_level(char c) {
-	int code = (unsigned char)c;
-	if ((code > 96) && (code < 123)) {	//переменные
-		return 0;
-	}
-	else if (code == 40) {	//открывающаяся скобка
-		return 10;
-	}
-	else if (code == 41) {	//закрывающаяся скобка
-		return 11;
-	}
-	else if ((code == 43) || (code == 45)) {	//сложение и вычитание
-		return 21;
-	}
-	else if ((code == 42) || (code == 47)) {	//умножение и деление
-		return 22;
-	}
-	else {
-		return -1;
-	}
+    int code = (unsigned char)c;
+    if ((code > 96) && (code < 123)) {
+        return 0;
+    }
+    else if (code == 40) {
+        return 10;
+    }
+    else if (code == 41) {
+        return 11;
+    }
+    else if ((code == 43) || (code == 45)) {
+        return 21;
+    }
+    else if ((code == 42) || (code == 47)) {
+        return 22;
+    }
+    else {
+        return -1;
+    }
 }
 
 int get_letter_code(char c) {
