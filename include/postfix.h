@@ -1,8 +1,13 @@
-// Copyright 2020 A.SHT
-#ifndef INCLUDE_POSTFIX_H_
-#define INCLUDE_POSTFIX_H_
-#include <string>
+// Copyright 2021 by idpas
+#ifndef POSTFIX_H
+#define POSTFIX_H
 
-std::string infix2postfix(std::string infix);
+int get_level(char c);
 
-#endif  // INCLUDE_POSTFIX_H_
+void set_values(float a[]);
+
+int get_letter_code(char c);
+
+char get_letter(int a);
+
+#endif  //POSTFIX_H

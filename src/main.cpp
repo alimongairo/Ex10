@@ -1,9 +1,8 @@
-// Copyright 2020 A.SHT
+// Copyright 2021 by idpas
+#include "MyStack.h"
 #include <iostream>
-#include <string>
-
-#include "postfix.h"
 
 int main() {
-  return 0;
+
+	return 0;
 }

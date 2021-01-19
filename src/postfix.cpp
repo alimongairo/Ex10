@@ -1,7 +1,144 @@
-// Copyright 2020 A.SHT
-#include "MyStack.h"
+// Copyright 2021 by idpas
 #include "postfix.h"
+#include "MyStack.h"
+#include <malloc.h>
+#include <math.h>
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-std::string infix2postfix(std::string infix) {
-  return infix;
+const int N = 1000;
+
+char* infix2prefix(char* str) {
+	MyStack<char> head_v(100);
+	MyStack<char> head_o(100);
+	MyStack<char> head(100);
+	char strout[N] = "";
+	char c = ' ';
+	int n = 0;
+	int i = 0;
+	float a[26] = { 0 };
+	int lvl = 0;
+	int lvl_o = 0;
+	int v_cnt = 0;
+	int o_cnt = 0;
+
+	n = strlen(str);
+	for (; i < n; i++) {
+		lvl = get_level(str[i]);
+		switch (lvl) {
+
+		case 0:		//переменная -> в выходной стек
+			head_v.push(str[i]);
+			a[get_letter_code(str[i])] = 1;
+			v_cnt++;
+			break;
+
+		case 21:	//операции -> обрабатываем операции в операторном стеке
+		case 22:
+			if (!head_o.isEmpty) {
+				lvl_o = get_level(head_o.get());
+				if (lvl_o >= lvl) {
+					while (!head_o.isEmpty && (get_level(head_o.get()) >= lvl)) {
+						head_v.push(head_o.get());
+						head_o.pop();
+					}
+				}
+				head_o.push(str[i]);
+			}
+			else {
+				head_o.push(str[i]);
+			}
+			o_cnt++;
+			break;
+
+		case 10:	//скобка ( -> в операторный стек
+			head_o.push(str[i]);
+			break;
+
+		case 11:	//скобка ) -> обрабатываем операции в операторном стеке до )
+			while (!head_o.isEmpty() && (get_level(head_o.get()) != 10)) {
+				head_v.push(head_o.get());
+				head_o.pop();
+			}
+			if (head_o.isEmpty()) {
+				printf("missing '('\n");
+				exit(0);
+			}
+			else {
+				head_o.pop();
+			}
+			break;
+
+		default:
+			printf("wrong symbol");
+			exit(0);
+		}
+	}
+	if (v_cnt != o_cnt + 1) {
+		printf("expression is not valid");
+		exit(0);
+	}
+	while (!head_o.isEmpty()) {
+		if (head_o.get() == 10) {
+			printf("missing ')'\n");
+			exit(0);
+		}
+		head_v.push(head_o.get());
+		head_o.pop();
+	}
+
+	while (!head_v.isEmpty()) {
+		head.push(head_v.get());
+		head_v.pop();
+	}
+	i = 0;
+	while (!head.isEmpty()) {
+		strout[i] = head.get();
+		head.pop();
+		i++;
+	}
+
+	return strout;
+}
+
+//
+int get_level(char c) {
+	int code = (unsigned char)c;
+	if ((code > 96) && (code < 123)) {	//переменные
+		return 0;
+	}
+	else if (code == 40) {	//открывающаяся скобка
+		return 10;
+	}
+	else if (code == 41) {	//закрывающаяся скобка
+		return 11;
+	}
+	else if ((code == 43) || (code == 45)) {	//сложение и вычитание
+		return 21;
+	}
+	else if ((code == 42) || (code == 47)) {	//умножение и деление
+		return 22;
+	}
+	else {
+		return -1;
+	}
+}
+
+int get_letter_code(char c) {
+	return (unsigned char)c - 97;
+}
+
+char get_letter(int a) {
+	return (char)(a + 97);
+}
+
+void set_values(float a[]) {
+	for (int i = 0; i < 26; i++) {
+		if (a[i] == 1) {
+			printf("enter %c:   ", get_letter(i));
+			scanf("%f", &a[i]);
+		}
+	}
 }
