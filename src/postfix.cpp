@@ -37,10 +37,10 @@ std::string infix2prefix(std::string str) {
 
         case 21:
         case 22:
-            if (!head_o.isEmpty) {
+            if (!head_o.isEmpty()) {
                 lvl_o = get_level(head_o.get());
                 if (lvl_o >= lvl) {
-                    while (!head_o.isEmpty && (get_level(head_o.get()) >= lvl)) {
+                    while (!head_o.isEmpty() && (get_level(head_o.get()) >= lvl)) {
                         head_v.push(head_o.get());
                         head_o.pop();
                     }
