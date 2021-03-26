@@ -1,6 +1,7 @@
 // Copyright 2021 by idpas
 #include "MyStack.h"
 #include "postfix.h"
+#include <string>
 #include <iostream>
 
 int main() {
